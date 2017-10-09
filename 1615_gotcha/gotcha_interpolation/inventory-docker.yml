@@ -1,0 +1,6 @@
+[docker]
+alpha
+
+[docker:vars]
+ansible_connection=docker
+become=no

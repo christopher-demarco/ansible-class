@@ -1,0 +1,15 @@
+---
+- name: Demonstrate a YAML parsing gotcha
+  hosts: all
+  vars:
+    - foo: "bar"
+  tasks:
+    - debug:
+        msg: {{ foo }} looks like a dictionary to YAML
+      tags: wrong
+
+    - debug:
+        msg: "{{ foo }} looks like a variable expansion to YAML"
+      tags: right
+
+      

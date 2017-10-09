@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: "{{ become_bool }}"
+  roles:
+    - userland
+

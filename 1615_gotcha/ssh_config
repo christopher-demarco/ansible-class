@@ -1,0 +1,20 @@
+Host *
+    UseKeychain yes
+    AddKeysToAgent yes
+
+Host * !bastion*
+    ControlMaster auto
+    ControlPath ~/.ssh/%h:%p
+    Compression no
+    ServerAliveInterval 60
+    # Forward stdin and stdout
+    ProxyCommand ssh user@bastion -W %h:%p
+
+Host bastion*
+   Compression no
+   ServerAliveInterval 60
+   HostName bastion.example
+   IdentityFile ~/.ssh/id_rsa
+   ForwardAgent yes
+
+

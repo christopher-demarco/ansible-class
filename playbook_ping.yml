@@ -1,0 +1,6 @@
+---
+- name: test
+  hosts: all
+  strategy: free
+  tasks:
+    - ping:

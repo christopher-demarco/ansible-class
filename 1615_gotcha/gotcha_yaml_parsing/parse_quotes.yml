@@ -1,0 +1,23 @@
+---
+- name: Demonstrate a YAML parsing gotcha
+  hosts: all
+  tasks:
+    - lineinfile:
+        path: /somefile
+        create: yes
+        state: present
+        line: quotes are not needed
+
+    - lineinfile:
+        path: /somefile
+        create: yes
+        state: present
+        line: quotes: needed
+      tags: wrong
+      
+    - lineinfile:
+        path: /somefile
+        create: yes
+        state: present
+        line: "quotes: needed"
+      tags: right

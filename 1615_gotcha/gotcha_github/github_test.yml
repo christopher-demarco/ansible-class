@@ -1,0 +1,12 @@
+---
+# make sure you're running ssh-agent
+# and that you've run ssh-add
+
+- hosts: all
+  tasks:
+    - name: Test ssh-agent forwarding for github
+      command: ssh -T git@github.com
+
+
+
+      

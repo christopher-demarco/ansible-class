@@ -1,0 +1,20 @@
+---
+- name: Demonstrate variable interpolation
+  hosts: all
+  vars:
+    - first:
+        "the_variable": foo
+        "the_acronym": fu
+    - second: bar
+    - which: acronym
+  tasks:
+    - debug:
+        msg: "{{ first['the_variable'] }}{{ second }}"
+    - debug:
+        msg: "What if we want the {{ which }}?"
+    - debug:
+        msg: "{{ first[the_which] }}{{ second }}"
+      tags: wrong
+    - debug:
+        msg: "{{ first['the_'+which] }}{{ second }}"
+      tags: right

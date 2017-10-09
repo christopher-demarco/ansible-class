@@ -1,0 +1,38 @@
+---
+# All yaml files should start with three dashes.
+
+- lists
+- use
+- dashes
+
+- dictionaries: have
+  keys:
+    - which
+    - could
+    - be
+    - nested: data
+      structures:
+        - arbitrarily
+        - deep.
+
+  indentation: matters.
+  but:
+    - your
+    - eyes
+    - readily
+    - ignore
+    - it.
+
+    - do
+    - not
+    - get
+    - lazy: when
+      reading: ansible
+    - playbooks!
+
+  always: keep
+  the: structure
+- in
+- mind: ok?
+  
+     

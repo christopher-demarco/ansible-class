@@ -1,0 +1,22 @@
+- name: Make a directory
+  hosts: all
+  become: yes
+  tasks:
+    - file:
+        name: /src
+        state: directory
+        group: "{{ ansible_ssh_user }}"
+
+# Agent-forwarding and `become` are incompatible
+- name: Clone github repo
+  hosts: all
+  become: no
+  tasks:
+    - git:
+        repo: 'git@github.com:christopher-demarco/dotfiles.git'
+        dest: /src
+        accept_hostkey: true
+
+
+
+        
