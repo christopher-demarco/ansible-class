@@ -1,0 +1,24 @@
+---
+- name: One ping only . . .
+  hosts: all
+  tasks:
+    - ping:
+
+- name: Ensure vim and emacs are up-to-date
+  hosts: all
+  tasks:
+    - apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - vim
+        - emacs24-nox
+
+- name: Set hostname if we know it
+  hosts: all
+  tasks:
+    - hostname:
+        name: "{{ hostname }}"
+      when: hostname is defined
+

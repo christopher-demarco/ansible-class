@@ -1,0 +1,6 @@
+---
+- name: One ping only . . .
+  hosts: all
+  tasks:
+    - ping:
+
