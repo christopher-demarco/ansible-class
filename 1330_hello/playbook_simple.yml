@@ -1,4 +1,6 @@
 ---
+# playbook_simple.yml
+
 - name: One ping only . . .
   hosts: all
   tasks:

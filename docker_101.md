@@ -1,4 +1,4 @@
-# Use Docker Containern to start and stop groups of hosts
+# Use Docker Container to start and stop groups of hosts
 
 `docker-compose up`
 
