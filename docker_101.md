@@ -13,6 +13,10 @@ Configuration is in `docker-compose.yml`.
 
 `docker ps -a`
 
+## Show what network ports a container exposes
+
+`docker port alpha`
+
 ## Get a shell on a running container
 
 `docker-exec -it alpha /bin/bash`
