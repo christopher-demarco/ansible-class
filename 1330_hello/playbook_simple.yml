@@ -15,10 +15,3 @@
         - vim
         - emacs24-nox
 
-- name: Set hostname if we know it
-  hosts: all
-  tasks:
-    - hostname:
-        name: "{{ hostname }}"
-      when: hostname is defined
-
