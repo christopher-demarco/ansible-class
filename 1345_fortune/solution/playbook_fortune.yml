@@ -9,8 +9,6 @@
         owner: www-data
         group: www-data
         mode: 0750
-      tags:
-        - cmd
   tags:
     - src
 

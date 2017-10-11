@@ -3,19 +3,13 @@
   hosts: all
   become: "{{ become_bool | default(False) }}"
   tasks:
-    - file:
-        name: /fortune
-        state: directory
-      tags:
-        - cmd
+    # This relative path will need to be changed if you move the playbook.
     - copy:
         src: 02_fortune/fortune/
-        dest: /fortune
+        dest: ../fortune
         owner: www-data
         group: www-data
         mode: 0750
-      tags:
-        - cmd
   tags:
     - src
 
@@ -44,16 +38,3 @@
         - slow
   tags:
     - deps
-
-
-- name: Start app
-  hosts: all
-  become: "{{ become_bool | default(False) }}"
-  tasks:
-    - shell: venv/bin/gunicorn -b 0.0.0.0:80 fortune:app &
-      args:
-        chdir: /fortune
-  tags:
-    - app
-
-
