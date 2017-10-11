@@ -5,8 +5,8 @@
   tasks:
     # This relative path will need to be changed if you move the playbook.
     - copy:
-        src: 02_fortune/fortune/
-        dest: ../fortune
+        src: ../fortune/
+        dest: /fortune
         owner: www-data
         group: www-data
         mode: 0750
