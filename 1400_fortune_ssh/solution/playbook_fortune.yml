@@ -38,3 +38,38 @@
         - slow
   tags:
     - deps
+
+
+- name: Start app [Docker]
+  hosts: all
+  become: False
+  tasks:
+    - shell: venv/bin/gunicorn -b 0.0.0.0:80 fortune:app &
+      args:
+        chdir: /fortune
+      when: ansible_virtualization_type == "docker"
+  tags:
+    - app
+
+
+- name: Start app [native]
+  hosts: all
+  become: "{{ become_bool | default(False) }}"
+  tasks:
+    - file:
+        src: /fortune/fortune.service
+        dest: /etc/systemd/system/fortune.service
+        state: link
+      when: ansible_virtualization_type == "NA"
+
+    - systemd:
+        daemon_reload: yes
+      when: ansible_virtualization_type == "NA"
+
+    - service:
+        name: fortune
+        state: restarted
+      when: ansible_virtualization_type == "NA"
+
+  tags:
+    - app

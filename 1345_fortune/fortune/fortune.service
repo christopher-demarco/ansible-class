@@ -1,0 +1,8 @@
+[Unit]
+Description=Fortune web app
+After=network.target auditd.service
+
+[Service]
+ExecStart=/fortune/venv/bin/gunicorn -b 0.0.0.0:80 fortune:app
+KillMode=process
+Restart=on-failure
