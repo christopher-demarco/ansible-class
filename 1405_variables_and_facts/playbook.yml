@@ -1,0 +1,10 @@
+---
+- name: Demonstrate facts and variables
+  hosts: all
+  tasks:
+    - debug:
+        msg: "Hello, {{ name | default('world') }}"
+        
+    - debug:
+        msg: "I am talking to a computer made by {{ ansible_system_vendor }}."
+
