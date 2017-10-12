@@ -4,5 +4,6 @@ After=network.target auditd.service
 
 [Service]
 ExecStart=/fortune/venv/bin/gunicorn -b 0.0.0.0:80 fortune:app
+WorkingDir=/fortune
 KillMode=process
 Restart=on-failure
