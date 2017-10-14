@@ -1,7 +1,20 @@
 ---
+- name: Determine whether to sudo
+  hosts: all
+  tasks:
+    - set_fact:
+        become_bool: True
+      when:
+        ansible_virtualization_type == "NA"
+    - set_fact:
+        become_bool: False
+      when:
+        ansible_virtualization_type == "docker"
+
+                                       
 - name: Copy source
   hosts: all
-  become: "{{ become_bool | default(False) }}"
+  become: "{{ become_bool }}"
   tasks:
     # This relative path will need to be changed if you move the playbook.
     - copy:
@@ -16,7 +29,7 @@
 
 - name: Install dependencies
   hosts: all
-  become: "{{ become_bool | default(False) }}"
+  become: "{{ become_bool }}"
   tasks:
     - apt:
         name: "{{ item }}"
@@ -54,7 +67,7 @@
 
 - name: Start app [native]
   hosts: all
-  become: "{{ become_bool | default(False) }}"
+  become: "{{ become_bool }}"
   tasks:
     - file:
         src: /fortune/fortune.service
