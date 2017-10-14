@@ -1,0 +1,9 @@
+---
+- name: Apply userland role
+  hosts: all
+  become: "{{ become_bool | default(False) }}"
+  tasks:
+    - ping:
+    - include_role:
+        name: userland
+  
