@@ -1,0 +1,22 @@
+---
+- name: Demonstrate cross-platform packages
+  hosts: all
+  become: yes
+  vars:
+    packages:
+      Debian:
+        - netcat
+        - tcpdump
+      RedHat:
+        - nmap-ncat
+        - tcpdump
+      Suse:
+        - netcat-openbsd
+        - tcpdump
+  tasks:
+    - package:
+        name: "{{ item }}"
+        state: latest
+      with_items: "{{ packages[ansible_os_family] }}"
+        
+    
