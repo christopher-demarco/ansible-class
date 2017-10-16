@@ -1,16 +1,14 @@
 ---
 # tasks file for roles/userland
 
-- hostname:
-    name: "{{ hostname }}"
-  when:
-    hostname is defined
+- name: Set hostname
+  hostname:
+    name: "{{ ansible_hostname }}"
     
 - name: Make me feel at home
   package:
     name: "{{ item }}"
     state: latest
-  become: "{{ become_bool | default(False)}}"
   with_items:
     - emacs
     - vim
@@ -20,16 +18,16 @@
   tags:
     - slow
 
-- command: "which zsh"
+- command: "which {{ shell }}"
   register: which_zsh
 - name: Make me a login
   user:
-    name: "{{ username }}"
+    name: "{{ github_id }}"
     state: present
     shell: "{{ which_zsh.stdout }}"
     generate_ssh_key: yes
 - authorized_key:
-    user: "cmd"
+    user: "{{ github_id }}"
     key: "https://github.com/{{ github_id }}.keys"
     manage_dir: yes
     state: present
@@ -41,12 +39,12 @@
   delegate_to: localhost
   with_items: "{{ groups['all'] }}"
   when:
-    hostname is defined and ansible_virtualization_type == "NA"
+    ansible_virtualization_type == "NA"
   become: no
   blockinfile:
     block: |
-      Host {{ hostname }}
-          User cmd
+      Host {{ ansible_hostname }}
+          User {{ github_id }}
           HostName "{{ hostvars[item]['inventory_hostname'] }}"
     path: "~/.ssh/config"
     backup: "yes"
