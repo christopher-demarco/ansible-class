@@ -3,7 +3,6 @@
 
 - block:
 
-
   - name: Set hostname
     hostname:
       name: "{{ ansible_hostname }}"
@@ -54,4 +53,5 @@
       path: "~/.ssh/config"
       state: "present"
 
+  # yaml wants "become" at the end of the block
   become: yes
