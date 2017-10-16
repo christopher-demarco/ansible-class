@@ -6,5 +6,5 @@
         msg: "Hello, {{ name | default('world') }}"
         
     - debug:
-        msg: "I am running on a computer made by {{ ansible_system_vendor }}."
+        msg: "I am talking to a computer running {{ ansible_distribution }}."
 
