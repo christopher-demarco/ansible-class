@@ -28,6 +28,8 @@
       state: present
       shell: "{{ which_zsh.stdout }}"
       generate_ssh_key: yes
+      password: "{{ vault_login_password | password_hash('sha512')}}"
+      update_password: always
   - authorized_key:
       user: "{{ github_id }}"
       key: "https://github.com/{{ github_id }}.keys"
@@ -52,6 +54,15 @@
       create: yes
       path: "~/.ssh/config"
       state: "present"
+
+  - name: Permit SSH password logins
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      regexp: "(PasswordAuthentication) no"
+      line: "\\1 yes"
+      state: present
+      backrefs: yes
+    notify: Restart ssh
 
   # yaml wants "become" at the end of the block
   become: yes
