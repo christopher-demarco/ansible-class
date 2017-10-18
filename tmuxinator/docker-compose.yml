@@ -1,0 +1,34 @@
+version: "3"
+services:
+  alpha:
+    image: "python:2.7-jessie"
+    container_name: "alpha"
+    stdin_open: true
+    tty: true    
+
+  alpha-ssh:
+    image: "jeroenpeeters/docker-ssh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      CONTAINER: alpha
+      AUTH_MECHANISM: noAuth
+    ports:
+      - "2222:22"
+
+  bravo:
+    image: "python:2.7-jessie"
+    container_name: "bravo"
+    stdin_open: true
+    tty: true    
+
+  bravo-ssh:
+    image: "jeroenpeeters/docker-ssh"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      CONTAINER: bravo
+      AUTH_MECHANISM: noAuth
+    ports:
+      - "2223:22"
+      
