@@ -1,0 +1,25 @@
+version: "3"
+services:
+  alpha:
+    image: "python:2.7-jessie"
+    container_name: "alpha"
+    stdin_open: true
+    tty: true    
+
+  bravo:
+    image: "python:2.7-jessie"
+    container_name: "bravo"
+    stdin_open: true
+    tty: true    
+
+  charlie:
+    image: "python:2.7-jessie"
+    container_name: "charlie"
+    stdin_open: true
+    tty: true
+
+  delta:
+    image: "python:2.7-jessie"
+    container_name: "delta"
+    stdin_open: true
+    tty: true    
