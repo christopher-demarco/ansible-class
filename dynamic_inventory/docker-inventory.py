@@ -63,6 +63,15 @@ if __name__ == '__main__':
             inventory[group] = {'hosts': [c['name']]}
     
     
+    # Make groups based on images
+    for c in containers:
+        group = c['image']
+        if group in inventory:
+            inventory[group]['hosts'].append(c['name'])
+        else:
+            inventory[group] = {'hosts': [c['name']]}
+
+
     # Set per-host vars based on labels
     for c in containers:
         for k, v in c['labels'].items():
