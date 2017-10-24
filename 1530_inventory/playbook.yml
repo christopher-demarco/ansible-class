@@ -1,0 +1,16 @@
+---
+- name: All webservers
+  hosts: web
+  tasks:
+    - ping:
+
+- name: Only the cool webservers
+  hosts: web:&winners
+  tasks:
+    - ping:
+
+- name: Shun poor charlie
+  hosts: all:!losers
+  tasks:
+    - ping:
+        
