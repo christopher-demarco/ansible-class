@@ -1,25 +1,35 @@
 version: "3"
 services:
   alpha:
-    image: "python:2.7-jessie"
+    image: "python:2-alpine"
     container_name: "alpha"
     stdin_open: true
-    tty: true    
+    tty: true
+    labels:
+      group: "web"
+      ansible_python_interpreter: "/usr/local/bin/python"
+      ansible_become: "False"
 
   bravo:
     image: "python:2.7-jessie"
     container_name: "bravo"
     stdin_open: true
-    tty: true    
+    tty: true
+    labels:
+      group: "web"
 
   charlie:
     image: "python:2.7-jessie"
     container_name: "charlie"
     stdin_open: true
     tty: true
+    labels:
+      group: "backend"
 
   delta:
     image: "python:2.7-jessie"
     container_name: "delta"
     stdin_open: true
-    tty: true    
+    tty: true
+    labels:
+      group: "backend"
