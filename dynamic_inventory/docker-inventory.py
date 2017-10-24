@@ -77,9 +77,11 @@ if __name__ == '__main__':
     if args.list:
         print json.dumps(inventory)
     else:
-        print json.dumps(
-            { k : v.get('vars')
+        vars_dict = {}
+        for d in [
+                v.get('vars')
                   for k, v in inventory.items()
-            if 'alpha' in v.get('hosts')
-            }
-        )
+                if args.host in v.get('hosts') and v.get('vars')
+                ]:
+            vars_dict.update(d)
+        print json.dumps(vars_dict)
