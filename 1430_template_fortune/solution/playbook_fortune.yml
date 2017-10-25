@@ -10,7 +10,8 @@
         become_bool: False
       when:
         ansible_virtualization_type == "docker"
-
+  tags:
+    - common
                                        
 - name: Copy source
   hosts: all
@@ -94,8 +95,28 @@
   tasks:
     - template:
         # This relative path will need to be changed if you move the playbook.        
-        src: fortune/fortune.apache
-        dest: /etc/apache/sites-available/001-fortune
+        src: ../fortune.apache
+        dest: /etc/apache2/sites-available/001-fortune.conf
         group: "www-data"
         mode: "0640"
         owner: "www-data"
+      notify:
+        - restart apache
+    - command: a2enmod proxy_http
+      args:
+        creates: /etc/apache2/mods-enabled/proxy.conf
+      notify:
+        - restart apache
+    - command: a2ensite 001-fortune
+      args:
+        creates: /etc/apache2/sites-enabled/001-fortune.conf
+      notify:
+        - restart apache
+  handlers:
+    - name: restart apache
+      service:
+        name: apache2
+        state: restarted
+  tags:
+    - proxy
+    
