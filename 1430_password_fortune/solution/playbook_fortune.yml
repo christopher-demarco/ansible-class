@@ -93,9 +93,24 @@
   hosts: all
   become: "{{ become_bool }}"
   tasks:
+    - file:
+        path: /etc/htdigest
+        owner: www-data
+        group: www-data
+        mode: 0750
+        state: directory
+        backup: yes
     - template:
         # This relative path will need to be changed if you move the playbook.        
-        src: ../fortune.apache
+        src: ../fortune.htdigest.j2
+        dest: /etc/htdigest/htdigest
+        owner: www-data
+        group: www-data
+        mode: 0640
+        backup: yes
+    - template:
+        # This relative path will need to be changed if you move the playbook.        
+        src: ../fortune.apache.j2
         dest: /etc/apache2/sites-available/001-fortune.conf
         group: "www-data"
         mode: "0640"
@@ -105,6 +120,11 @@
     - command: a2enmod proxy_http
       args:
         creates: /etc/apache2/mods-enabled/proxy.conf
+      notify:
+        - restart apache
+    - command: a2enmod auth_digest
+      args:
+        creates: /etc/apache2/mods-enabled/auth_digest.load
       notify:
         - restart apache
     - command: a2ensite 001-fortune

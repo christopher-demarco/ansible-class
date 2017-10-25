@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerName {{fqdn}}
+    ProxyPreserveHost On
+    <Location />
+        AuthType Digest
+        AuthDigestDomain "fortune"
+        AuthDigestProvider file
+        AuthName "fortune"
+        AuthUserFile "/etc/htdigest/htdigest"
+        Require valid-user
+        ProxyPass http://127.0.0.1:8888/
+    </Location>
+</VirtualHost>
