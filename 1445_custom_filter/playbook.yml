@@ -1,0 +1,7 @@
+---
+- name: Demonstrate custom filter
+  hosts: localhost
+  tasks:
+    - debug:
+        msg: "{{ input | rot13 }}"
+        
