@@ -1,0 +1,88 @@
+---
+- name: Determine whether to sudo
+  hosts: all
+  tasks:
+    - set_fact:
+        become_bool: True
+      when:
+        ansible_virtualization_type == "NA"
+    - set_fact:
+        become_bool: False
+      when:
+        ansible_virtualization_type == "docker"
+
+                                       
+- name: Copy source
+  hosts: all
+  become: "{{ become_bool }}"
+  tasks:
+    # This relative path will need to be changed if you move the playbook.
+    - copy:
+        src: ../fortune/
+        dest: /fortune
+        owner: www-data
+        group: www-data
+        mode: 0750
+  tags:
+    - src
+
+
+- name: Install dependencies
+  hosts: all
+  become: "{{ become_bool }}"
+  tasks:
+    - apt:
+        name: "{{ item }}"
+        state: latest
+        update_cache: yes
+      with_items:
+        - python3
+        - python3-pip
+        - python3-dev
+        - virtualenv
+      tags:
+        - slow
+    - pip:
+        requirements: /fortune/requirements.txt
+        virtualenv: /fortune/venv
+        state: latest
+        virtualenv_python: python3
+      tags:
+        - slow
+  tags:
+    - deps
+
+
+- name: Start app [Docker]
+  hosts: all
+  become: False
+  tasks:
+    - shell: venv/bin/gunicorn -b 0.0.0.0:80 fortune:app &
+      args:
+        chdir: /fortune
+      when: ansible_virtualization_type == "docker"
+  tags:
+    - app
+
+
+- name: Start app [native]
+  hosts: all
+  become: "{{ become_bool }}"
+  tasks:
+    - file:
+        src: /fortune/fortune.service
+        dest: /etc/systemd/system/fortune.service
+        state: link
+      when: ansible_virtualization_type == "NA"
+
+    - systemd:
+        daemon_reload: yes
+      when: ansible_virtualization_type == "NA"
+
+    - service:
+        name: fortune
+        state: restarted
+      when: ansible_virtualization_type == "NA"
+
+  tags:
+    - app
