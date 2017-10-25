@@ -1,0 +1,11 @@
+[foo]
+1.2.3.4 ansible_host=1.2.3.4
+2.3.4.5 ansible_host=2.3.4.5
+5.6.7.8 ansible_host=5.6.7.8
+
+[bar]
+10.11.12.13 ansible_host=10.11.12.13
+11.12.13.14 ansible_host=11.12.13.14
+12.13.14.15 ansible_host=12.13.14.15
+13.14.15.16 ansible_host=13.14.15.16
+14.15.16.17 ansible_host=14.15.16.17

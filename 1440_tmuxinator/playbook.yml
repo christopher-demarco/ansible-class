@@ -1,0 +1,10 @@
+---
+- name: Write tmuxinator manifest
+  become: no
+  hosts: localhost
+  tasks:
+    - template:
+        src: tmuxinator.yml.j2
+        dest: "{{ ansible_env.HOME }}/.tmuxinator/{{ tmuxinator_name }}.yml"
+      delegate_to: localhost        
+        

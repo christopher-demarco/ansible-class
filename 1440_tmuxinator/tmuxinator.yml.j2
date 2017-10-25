@@ -1,0 +1,15 @@
+name: {{ tmuxinator_name }}
+windows:
+  - group_foo:
+      layout: even-vertical
+      panes:
+{% for host in groups['foo'] %}
+        - ssh {{hostvars[host]['ansible_host']}}
+{% endfor %}
+
+  - group_bar:
+      layout: even-vertical
+      panes:
+{% for host in groups['bar'] %}
+        - ssh {{hostvars[host]['ansible_host']}}
+{% endfor %}
