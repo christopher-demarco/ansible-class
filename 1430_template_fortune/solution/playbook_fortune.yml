@@ -87,3 +87,15 @@
 
   tags:
     - app
+
+- name: Setup Apache proxy
+  hosts: all
+  become: "{{ become_bool }}"
+  tasks:
+    - template:
+        # This relative path will need to be changed if you move the playbook.        
+        src: fortune/fortune.apache
+        dest: /etc/apache/sites-available/001-fortune
+        group: "www-data"
+        mode: "0640"
+        owner: "www-data"
