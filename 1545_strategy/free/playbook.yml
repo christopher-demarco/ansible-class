@@ -1,0 +1,12 @@
+---
+# playbook
+
+- name: Take a variably long time
+  gather_facts: no
+  hosts: all
+  strategy: free
+  tasks:
+    - shell: sleep {{sleeptime}}
+    - shell: sleep {{sleeptime}}
+    - shell: sleep {{sleeptime}}      
+    - debug: msg="Done"
