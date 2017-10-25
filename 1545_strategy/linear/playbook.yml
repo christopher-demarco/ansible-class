@@ -4,7 +4,6 @@
 - name: Take a variably long time
   gather_facts: no
   hosts: all
-  serial: 2
   tasks:
     - shell: sleep {{sleeptime}}
     - shell: sleep {{sleeptime}}
