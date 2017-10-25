@@ -1,5 +1,6 @@
 - name: Restart ssh
-  become: "{{ become_bool }}"
+  become: "{{ become_bool }}" # this looks like a bug
+  # https://github.com/ansible/ansible/issues/21139
   service:
     name: ssh
     state: restarted
