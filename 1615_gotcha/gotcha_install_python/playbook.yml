@@ -1,0 +1,13 @@
+---
+- name: Bootstrap Python
+  hosts: all
+  gather_facts: false
+  tasks:
+    - raw: apt -y update && apt install -fy python-minimal
+
+- name: Move on with life
+  hosts: all
+  tasks:
+    - ping:
+    - command: /bin/true
+      
