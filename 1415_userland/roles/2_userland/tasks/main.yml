@@ -1,0 +1,63 @@
+---
+# tasks file for roles/userland
+
+  - name: Set hostname
+    hostname:
+      name: "{{ my_hostname }}"
+
+  - name: Make me feel at home
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - emacs
+      - vim
+      - tcpdump
+      - git
+      - zsh
+    tags:
+      - slow
+
+  - command: "which {{ shell }}"
+    register: which_zsh
+  - name: Make me a login
+    user:
+      name: "{{ github_id }}"
+      state: present
+      shell: "{{ which_zsh.stdout }}"
+      generate_ssh_key: yes
+      password: "{{ vault_login_password | password_hash('sha512')}}"
+      update_password: always
+  - authorized_key:
+      user: "{{ github_id }}"
+      key: "https://github.com/{{ github_id }}.keys"
+      manage_dir: yes
+      state: present
+    when:
+      github_id is defined
+
+
+  - name: Add an alias to ~/.ssh/config
+    delegate_to: localhost
+    with_items: "{{ groups['all'] }}"
+    when:
+      ansible_virtualization_type == "NA"
+    become: no
+    blockinfile:
+      backup: "yes"
+      block: |
+        Host {{ my_hostname }}
+            User {{ github_id }}
+            HostName "{{ hostvars[item]['inventory_hostname'] }}"
+      create: yes
+      path: "~/.ssh/config"
+      state: "present"
+
+  - name: Permit SSH password logins
+    lineinfile:
+      dest: "/etc/ssh/sshd_config"
+      regexp: "(PasswordAuthentication) no"
+      line: "\\1 yes"
+      state: present
+      backrefs: yes
+    notify: Restart ssh
