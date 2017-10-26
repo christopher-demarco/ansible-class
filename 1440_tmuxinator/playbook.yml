@@ -3,8 +3,11 @@
   become: no
   hosts: localhost
   tasks:
+    - file:
+        name: ~/.tmuxinator
+        state: directory
     - template:
         src: tmuxinator.yml.j2
-        dest: "{{ ansible_env.HOME }}/.tmuxinator/{{ tmuxinator_name }}.yml"
+        dest: "{{ ansible_env.HOME }}/.tmuxinator/example.yml"
       delegate_to: localhost        
         
