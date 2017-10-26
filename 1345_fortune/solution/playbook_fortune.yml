@@ -40,7 +40,6 @@
 
 - name: Start app
   hosts: all
-  become: "{{ become_bool | default(False) }}"
   tasks:
     - shell: venv/bin/gunicorn -b 0.0.0.0:80 fortune:app &
       args:
