@@ -1,4 +1,17 @@
 ---
+- name: Determine whether to sudo
+  hosts: all
+  tasks:
+    - set_fact:
+        become_bool: True
+      when:
+        ansible_virtualization_type == "NA"
+    - set_fact:
+        become_bool: False
+      when:
+        ansible_virtualization_type == "docker"
+
+                                       
 - name: Copy source
   hosts: all
   become: "{{ become_bool }}"
