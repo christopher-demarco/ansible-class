@@ -101,7 +101,7 @@
         state: directory
         backup: yes
     - template:
-        # This relative path will need to be changed if you move the playbook.        
+        # This relative path will need to be changed if you move the playbook.
         src: ../fortune.htdigest.j2
         dest: /etc/htdigest/htdigest
         owner: www-data
@@ -109,7 +109,7 @@
         mode: 0640
         backup: yes
     - template:
-        # This relative path will need to be changed if you move the playbook.        
+        # This relative path will need to be changed if you move the playbook.
         src: ../fortune.apache.j2
         dest: /etc/apache2/sites-available/001-fortune.conf
         group: "www-data"

@@ -1,4 +1,5 @@
 shell: "zsh"
 github_id: "christopher-demarco"
+my_hostname: "my_hostname"
 login_password: "{{ vault_login_password }}"
 
