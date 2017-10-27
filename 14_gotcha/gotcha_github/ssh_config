@@ -3,9 +3,3 @@ Host *
     ForwardAgent yes
     UseKeychain yes
     AddKeysToAgent yes
-
-#### Proxy everything through Rhiza-HQ
-
-# Host * !office*
-#     ControlMaster auto
-#     ControlPath ~/.ssh/%h:%p
