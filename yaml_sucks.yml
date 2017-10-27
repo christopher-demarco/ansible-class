@@ -1,7 +1,7 @@
 ---
 # All yaml files should start with three dashes.
 
-# TABS WILL BREAK YAML!
+# >>>    ONLY USE SPACES; TABS WILL BREAK YAML!    <<< 
 
 - lists
 - use
@@ -37,4 +37,3 @@
 - in
 - mind: ok?
   
-     
