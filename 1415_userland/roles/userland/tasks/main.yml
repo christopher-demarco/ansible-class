@@ -39,7 +39,7 @@
   delegate_to: localhost
   with_items: "{{ groups['all'] }}"
   when:
-    ansible_virtualization_type == "NA"
+    ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
   become: no
   blockinfile:
     backup: "yes"

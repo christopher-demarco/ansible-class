@@ -5,7 +5,7 @@
     - set_fact:
         become_bool: True
       when:
-        ansible_virtualization_type == "NA"
+        ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
     - set_fact:
         become_bool: False
       when:
@@ -73,16 +73,16 @@
         src: /fortune/fortune.service
         dest: /etc/systemd/system/fortune.service
         state: link
-      when: ansible_virtualization_type == "NA"
+      when: ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
 
     - systemd:
         daemon_reload: yes
-      when: ansible_virtualization_type == "NA"
+      when: ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
 
     - service:
         name: fortune
         state: restarted
-      when: ansible_virtualization_type == "NA"
+      when: ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
 
   tags:
     - app
