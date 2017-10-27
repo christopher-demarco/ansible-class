@@ -64,12 +64,12 @@
 
     - systemd:
         daemon_reload: yes
-      when: ansible_virtualization_type == "NA"or ansible_virtualization_type == "xen"
+      when: ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
 
     - service:
         name: fortune
         state: restarted
-      when: ansible_virtualization_type == "NA"or ansible_virtualization_type == "xen"
+      when: ansible_virtualization_type == "NA" or ansible_virtualization_type == "xen"
 
   tags:
     - app
