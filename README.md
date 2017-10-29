@@ -10,7 +10,7 @@ If you have gotten here someotherhow, you must do it yourself.
 
 ## SSH access
 
-In a class setting, the directory ~/magrathea contains the scripts
+In a class setting, the directory ~/.magrathea contains the scripts
 necessary to create/destroy a host which you can provision via SSH. If
 you are running these examples on your own, the
 GitHub [Magrathea](https://github.com/christopher-demarco/magrathea)
