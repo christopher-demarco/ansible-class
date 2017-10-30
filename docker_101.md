@@ -16,7 +16,7 @@ Configuration is in `docker-compose.yml`.
 `docker port alpha`
 
 ## Get a shell on a running container
-`docker-exec -it alpha /bin/bash`
+`docker exec -it alpha /bin/bash`
 
 ## Get rid of containers
 ### Kill a running container
